@@ -30,6 +30,9 @@ class User(Base, TimestampMixin):
 
     id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid7)
     org_id: Mapped[UUID] = mapped_column(ForeignKey("organizations.id"), nullable=False)
+    default_location_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey("locations.id", name="fk_users_default_location_id")
+    )
     email: Mapped[str] = mapped_column(String, nullable=False)
     password_hash: Mapped[str] = mapped_column(String, nullable=False)
     full_name: Mapped[str] = mapped_column(String, nullable=False)
