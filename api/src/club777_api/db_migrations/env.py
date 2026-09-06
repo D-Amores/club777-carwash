@@ -22,7 +22,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 
 from club777_api.core.models import Base
-from club777_api.organizations.models import Organization  # noqa: F401
+from club777_api.organizations.models import Location, Organization  # noqa: F401
 from club777_api.users.models import RefreshToken, User  # noqa: F401
 
 target_metadata = Base.metadata
