@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from club777_api.organizations.models import Organization
@@ -23,7 +23,7 @@ def test_create_refresh_token_for_user(db_session):
     refresh_token = RefreshToken(
         user_id=user.id,
         token_hash="fake_hashed_token_value",
-        expires_at=datetime.now(timezone.utc) + timedelta(days=7),
+        expires_at=datetime.now(UTC) + timedelta(days=7),
     )
     db_session.add(refresh_token)
     db_session.flush()
