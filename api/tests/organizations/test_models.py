@@ -19,6 +19,15 @@ def test_create_organization_with_defaults(db_session):
 
 
 def test_rollback_leaves_no_trace(db_session):
-    result = db_session.execute(select(Organization)).scalars().all()
+    organization = Organization(name="Empresa Temporal de Prueba")
+    db_session.add(organization)
+    db_session.flush()
+    created_id = organization.id
 
-    assert result == []
+    db_session.rollback()
+
+    result = db_session.execute(
+        select(Organization).where(Organization.id == created_id)
+    ).scalar_one_or_none()
+
+    assert result is None
