@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -12,6 +14,10 @@ class Settings(BaseSettings):
     db_name: str
     db_host: str = "localhost"
     db_port: int = 5432
+
+    default_org_id: UUID
+    jwt_secret_key: str
+    jwt_access_token_expire_minutes: int = 15
 
     @property
     def database_url(self) -> str:
