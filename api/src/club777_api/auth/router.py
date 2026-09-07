@@ -15,7 +15,7 @@ def login(credentials: LoginRequest, db: Session = Depends(get_db)) -> TokenResp
 
     if user is None:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Credenciales invalidas."
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Credenciales inválidas."
         )
 
     access_token = create_access_token(user)
