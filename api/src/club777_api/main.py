@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from club777_api.auth.router import router as auth_router
 from club777_api.core.config import settings
 from club777_api.core.database import SessionLocal
 from club777_api.organizations.models import Organization
@@ -27,3 +28,4 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Club777 API", lifespan=lifespan)
+app.include_router(auth_router)
