@@ -45,6 +45,10 @@ class RefreshTokenRepository:
 
         return self._session.execute(statement).scalar_one_or_none()
 
+    def get_by_hash(self, token_hash: str) -> RefreshToken | None:
+        statement = select(RefreshToken).where(RefreshToken.token_hash == token_hash)
+        return self._session.execute(statement).scalar_one_or_none()
+
     def revoke(self, refresh_token: RefreshToken) -> None:
         refresh_token.revoked_at = datetime.now(UTC)
         self._session.flush()
