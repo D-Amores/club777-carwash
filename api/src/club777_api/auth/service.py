@@ -31,6 +31,15 @@ def authenticate(session: Session, email: str, password: str) -> User | None:
     return user
 
 
+def logout(session: Session, raw_refresh_token: str) -> None:
+    repository = RefreshTokenRepository(session)
+    token_hash = hash_refresh_token(raw_refresh_token)
+    existing = repository.get_by_hash(token_hash)
+
+    if existing is not None and existing.revoked_at is None:
+        repository.revoke(existing)
+
+
 class InvalidRefreshTokenError(Exception):
     pass
 
